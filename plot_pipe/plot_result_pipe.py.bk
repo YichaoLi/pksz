@@ -1,0 +1,117 @@
+from ksz.src import plot
+import matplotlib.pyplot as plt
+
+result_path = '/data/ycli/ksz/'
+output_path = '../png/'
+#ap_list = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+#ap_list = [6, 7, 8]
+#ap_list = [8,]
+#ap_list = [2, 3, 4, 5, 6, 7, 8]
+#ap_list = [12, 11, 10, 9, 8, 7, 6, 5]
+ap_list = [12, ]
+
+for ap in ap_list:
+    result_name_list = [
+            #'pkSZ_result_shuffle_tSZcln_CGC_50_AP8arcm.h5',
+            #'pkSZ_result_tSZcln_DR12LOWZNwMASS_CGC1_50_AP%darcm_f1.41.h5'%ap,
+            #'pkSZ_result_tSZcln_DR12LOWZNwMASS_50_AP%darcm_f1.41.h5'%ap,
+            #'pkSZ_result_shuffle_tSZcln_6dFGSDR3RT80TEST_50_AP%darcm.h5'%ap,
+            #'pkSZ_result_tSZcln_6dFGSDR3_50_AP%darcm_f1.41.h5'%ap,
+
+            'pkSZ_result_largemask_tSZcln_6dFGSDR3_50_AP%darcm_f1.41.h5'%ap,
+            #'pkSZ_result_largemask_tSZcln_6dFGSDR3_50_AP%darcm_f1.41_sigz0.005.h5'%ap,
+            #'pkSZ_result_largemask_tSZcln_6dFGPCM_NMEM_Max20_NMEM_Min1_50_AP%darcm_f1.41.h5'%ap,
+            #'pkSZ_result_largemask_tSZcln_6dFGPCM_logHM_Max14_50_AP%darcm_f1.41_sigz0.005.h5'%ap,
+            #'pkSZ_result_largemask_tSZcln_6dFGPCM_logHM_Max14_50_AP%darcm_f1.41_sigz0.010.h5'%ap,
+            #'pkSZ_result_largemask_tSZcln_6dFGPCM_NMEM_Max20_NMEM_Min1_50_AP%darcm_f1.41_sigz0.005.h5'%ap,
+
+            #'pkSZ_result_tSZcln_6dFGPCM_50_AP%darcm_f1.41.h5'%ap,
+            #'pkSZ_result_tSZcln_6dFGPCM_NMEM_Max20_NMEM_Min1_50_AP%darcm_f1.41.h5'%ap,
+
+            #'pkSZ_result_tSZcln_DR13GPCM_N_50_AP%darcm_f1.41.h5'%ap,
+            #'pkSZ_result_tSZcln_DR13GPCM_S_50_AP%darcm_f1.41.h5'%ap,
+            'pkSZ_result_largemask_tSZcln_DR13GPCM_N_50_AP%darcm_f1.41.h5'%ap,
+            'pkSZ_result_largemask_tSZcln_6dFGPCM_HC_50_AP%darcm_f1.41_sigz0.010.h5'%ap,
+            #'pkSZ_result_largemask_tSZcln_DR13GPCM_N_50_AP%darcm_f1.41_sigz0.020.h5'%ap,
+            #'pkSZ_result_largemask_tSZcln_DR13GPCM_S_50_AP%darcm_f1.41.h5'%ap,
+            #'pkSZ_result_largemask_tSZcln_DR13GPCM_N_50_AP%darcm_f1.41_sigz0.001.h5'%ap
+
+            #'pkSZ_result_tSZcln_DR12LOWZNwMASS_50_AP%darcm_f1.41.h5'%ap,
+            #'pkSZ_result_tSZcln_DR12LOWZSwMASS_50_AP%darcm_f1.41.h5'%ap,
+            #'pkSZ_result_tSZcln_DR12CMASNwMASS_50_AP%darcm_f1.41.h5'%ap,
+            #'pkSZ_result_tSZcln_DR12CMASSwMASS_50_AP%darcm_f1.41.h5'%ap,
+            ]
+    label_list = [
+            #'DR7 CGC, AP$=8$ arcmin, $f=1.41$',
+            #'DR12 LOWZ North CGC1, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41),
+            #'DR12 LOWZ North, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41),
+            #'6dFGS RT80, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41),
+            #'6dFGS, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41),
+
+            '6dFGS mask, AP$=%2.1f$ arcmin, $f=%3.2f$, $\sigma_z=%4.3f$'%(ap, 1.41, 0.010),
+            #'6dFGS mask, AP$=%2.1f$ arcmin, $f=%3.2f$, $\sigma_z=%4.3f$'%(ap, 1.41, 0.005),
+            #'6dF mask Group N<20, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41),
+            #'6dF mask Group logM<14, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41),
+            #'6dF mask Group logM<14, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41),
+            #'6dF mask Group N<20, AP$=%2.1f$ arcmin, $f=%3.2f$, $\sigma_z=%3.2f$'%(ap, 1.41, 0.005),
+
+            '6dF Group, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41),
+            '6dF Group, Heliocentric, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41),
+            #'6dF Group N<20, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41),
+
+            #'dr13 North Group, AP$=%2.1f$ arcmin, $f=%3.2f$, $\sigma_z=%4.3f$'%(ap, 1.41, 0.01),
+            #'dr13 South Group, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41),
+            #'dr13 North mask Group, AP$=%2.1f$ arcmin, $f=%3.2f$, $\sigma_z=%4.3f$'%(ap, 1.41, 0.01),
+            #'dr13 North mask Group, AP$=%2.1f$ arcmin, $f=%3.2f$, $\sigma_z=%4.3f$'%(ap, 1.41, 0.02),
+            #'dr13 South mask  Group, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41)
+            #'dr13 North mask Group, AP$=%2.1f$ arcmin, $f=%3.2f$, $\sigma_z=%4.3f$'%(ap, 1.41, 0.001),
+
+            #'DR12 LOWZ North, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41),
+            #'DR12 LOWZ South, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41),
+            #'DR12 CMASS North, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41),
+            #'DR12 CMASS South, AP$=%2.1f$ arcmin, $f=%3.2f$'%(ap, 1.41),
+            ]
+    vij_result = [
+            #'/home/ycli/code/ksz/data/v_logmassmin11_z0.10.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin13_z0.20.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin13_z0.20.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin11_z0.05.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin11_z0.05.h5',
+
+            '/home/ycli/code/ksz/data/v_logmassmin11_z0.05.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin11_z0.05.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin11_z0.05.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin11_z0.05.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin11_z0.05.h5',
+            '/home/ycli/code/ksz/data/v_logmassmin11_z0.05.h5',
+            '/home/ycli/code/ksz/data/v_logmassmin11_z0.05.h5',
+
+            #'/home/ycli/code/ksz/data/v_logmassmin11_z0.10.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin11_z0.10.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin11_z0.10.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin11_z0.10.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin11_z0.10.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin11_z0.10.h5',
+
+            #'/home/ycli/code/ksz/data/v_logmassmin13_z0.20.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin13_z0.20.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin13_z0.50.h5',
+            #'/home/ycli/code/ksz/data/v_logmassmin13_z0.50.h5',
+            ]
+    output_name = 'plot_6dFGP_AP%d'%ap
+    #output_name = 'plot_dr13lowz_AP%d'%ap
+    #output_name = 'plot_dr12cmass_AP%d'%ap
+    text=''
+    #plot.check_TAP_bar(result_path, result_name_list,  label_list=label_list,
+    #        output_path=output_path, output_name=output_name, text=text)
+    #plot.plot_cov(result_path, result_name_list, label_list=label_list,
+    #        output_path=output_path, text=text)
+    #plot.plot_error(result_path, result_name_list, label_list=label_list,
+    #        output_path=output_path, output_name=output_name,text=text, 
+    #        ymax=0.2, ymin=0.0)
+    plot.plot_pkSZ(result_path, result_name_list, label_list=label_list,
+            output_path=output_path, output_name=output_name,text=text,
+            ymax=0.15, ymin=-0.3, vij_result=vij_result)
+            #ymax=0.12, ymin=-0.25, vij_result=vij_result)
+
+plt.show()
